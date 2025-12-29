@@ -24,7 +24,6 @@ export default function App() {
         v7_relativeSplatPath: true
       }}
     >
-      <VoiceCommandTip />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/alphabet" element={<Alphabet />} />
@@ -40,6 +39,7 @@ export default function App() {
         <Route path="/blocks" element={<BlockGame />} />
         <Route path="/learn" element={<LearnPage />} />
       </Routes>
+      <VoiceCommandTip />
       <GlobalVoiceCommand />
     </BrowserRouter>
   );

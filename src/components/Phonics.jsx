@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { phonicsWords } from "../data/phonics";
 import { Howl } from "howler";
@@ -13,6 +13,19 @@ export default function Phonics() {
   const [isListening, setIsListening] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [recognition, setRecognition] = useState(null);
+
+  // Cleanup speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          console.error('Error stopping recognition:', error);
+        }
+      }
+    };
+  }, [recognition]);
 
   // Filter words by category
   const getFilteredWords = () => {

@@ -27,7 +27,11 @@ export default function GlobalVoiceCommand() {
   useEffect(() => {
     return () => {
       if (recognition) {
-        stopVoiceCommandListener(recognition);
+        try {
+          stopVoiceCommandListener(recognition);
+        } catch (error) {
+          console.error('Error stopping voice command:', error);
+        }
       }
     };
   }, [recognition]);
