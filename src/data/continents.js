@@ -9,7 +9,7 @@ export const continents = [
       "Has amazing animals like lions, elephants, and giraffes",
       "The Nile River is the longest river in the world"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "o50N3-OaGdM", // Africa for Kids
     funFact: "Africa has more countries than any other continent - 54!"
   },
   {
@@ -21,7 +21,7 @@ export const continents = [
       "Covered in ice and snow all year round",
       "Home to penguins, seals, and whales"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "LBbWVw1kp5Q", // Antarctica for Kids
     funFact: "Antarctica has no permanent residents, only scientists!"
   },
   {
@@ -33,7 +33,7 @@ export const continents = [
       "Home to Mount Everest, the tallest mountain",
       "Over 4.7 billion people live in Asia"
     ],
-    videoId: "urr53arh--E", // Asia continent for kids
+    videoId: "fKmqkGoHWtc", // Asia for Kids
     funFact: "Asia has the most people of any continent!"
   },
   {
@@ -45,7 +45,7 @@ export const continents = [
       "Over 50 countries in Europe",
       "Known for its art, music, and history"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "xjopQlVn428", // Europe for Kids
     funFact: "Europe has some of the smallest countries in the world!"
   },
   {
@@ -57,7 +57,7 @@ export const continents = [
       "Home to grizzly bears, bald eagles, and bison",
       "Contains 23 countries including USA, Canada, and Mexico"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "9F8OimKRgSk", // North America for Kids
     funFact: "The longest coastline in the world is in North America!"
   },
   {
@@ -69,7 +69,7 @@ export const continents = [
       "Has colorful birds, monkeys, and jaguars",
       "The Andes Mountains are the longest mountain range"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "cdJ-itYBK9Q", // South America for Kids
     funFact: "The Amazon River is home to pink dolphins!"
   },
   {
@@ -81,7 +81,7 @@ export const continents = [
       "The Great Barrier Reef is the largest coral reef",
       "Made up of Australia and thousands of islands"
     ],
-    videoId: "K4JhruinbWc", // 7 Continents - Mocomi
+    videoId: "6G0qk-I53E8", // Australia/Oceania for Kids
     funFact: "Australia is both a country and a continent!"
   }
 ];
