@@ -10,6 +10,9 @@ export default function Phonics() {
   const [category, setCategory] = useState("all");
   const [index, setIndex] = useState(0);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [isListening, setIsListening] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [recognition, setRecognition] = useState(null);
 
   // Filter words by category
   const getFilteredWords = () => {
@@ -67,17 +70,114 @@ export default function Phonics() {
 
   const handleNext = () => {
     setIndex((i) => (i + 1) % filteredWords.length);
+    setFeedback("");
   };
 
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
     setIndex(0);
+    setFeedback("");
   };
 
   const toggleVoice = () => {
     setVoiceEnabled(!voiceEnabled);
     if (!voiceEnabled) {
       speak("Voice assistant turned on!");
+    }
+  };
+
+  const startListening = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      setFeedback("Sorry, speech recognition is not supported in your browser!");
+      speak("Speech recognition is not supported in your browser!");
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recog = new SpeechRecognition();
+
+    recog.continuous = false;
+    recog.interimResults = false;
+    recog.lang = 'en-US';
+    recog.maxAlternatives = 5;
+
+    recog.onstart = () => {
+      setIsListening(true);
+      setFeedback("🎤 Listening... Say the word!");
+    };
+
+    recog.onresult = (event) => {
+      const results = [];
+      for (let i = 0; i < event.results[0].length; i++) {
+        results.push(event.results[0][i].transcript.toLowerCase().trim());
+      }
+      
+      console.log('Heard:', results);
+      console.log('Expected:', current.word.toLowerCase());
+
+      // Check if any of the results match the current word
+      const correctWord = current.word.toLowerCase();
+      const isCorrect = results.some(result => {
+        // Exact match or close match
+        return result === correctWord || 
+               result.includes(correctWord) || 
+               correctWord.includes(result);
+      });
+
+      if (isCorrect) {
+        setFeedback("🎉 Great job! You said it correctly!");
+        if (voiceEnabled) {
+          speak("Perfect! You said it correctly! Great job!");
+        }
+        // Auto advance after 2 seconds
+        setTimeout(() => {
+          handleNext();
+        }, 2000);
+      } else {
+        setFeedback(`Not quite! You said "${results[0]}". Try again!`);
+        if (voiceEnabled) {
+          speak(`Not quite! Try saying ${current.word} again!`);
+        }
+      }
+    };
+
+    recog.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      setIsListening(false);
+      
+      if (event.error === 'no-speech') {
+        setFeedback("I didn't hear you. Click the microphone and try again!");
+        if (voiceEnabled) {
+          speak("I didn't hear you. Click the microphone and try again!");
+        }
+      } else if (event.error === 'audio-capture') {
+        setFeedback("Microphone not accessible. Please check permissions!");
+        if (voiceEnabled) {
+          speak("I can't access your microphone. Please check permissions!");
+        }
+      } else {
+        setFeedback("Something went wrong. Try again!");
+      }
+    };
+
+    recog.onend = () => {
+      setIsListening(false);
+    };
+
+    try {
+      recog.start();
+      setRecognition(recog);
+    } catch (error) {
+      console.error('Failed to start speech recognition:', error);
+      setIsListening(false);
+      setFeedback("Couldn't start listening. Try again!");
+    }
+  };
+
+  const stopListening = () => {
+    if (recognition) {
+      recognition.stop();
+      setIsListening(false);
     }
   };
 
@@ -247,6 +347,24 @@ export default function Phonics() {
         </button>
 
         <button
+          onClick={isListening ? stopListening : startListening}
+          style={{
+            padding: "12px 32px",
+            fontSize: 18,
+            backgroundColor: isListening ? "#FF6B6B" : "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: 8,
+            cursor: "pointer",
+            marginRight: 12,
+            animation: isListening ? 'pulse 1s infinite' : 'none',
+            boxShadow: isListening ? '0 4px 16px rgba(255,107,107,0.5)' : '0 2px 8px rgba(0,0,0,0.1)'
+          }}
+        >
+          {isListening ? "🔴 Stop" : "🎤 Try saying it"}
+        </button>
+
+        <button
           onClick={handleNext}
           style={{
             padding: "12px 32px",
@@ -261,6 +379,21 @@ export default function Phonics() {
         >
           Next Word
         </button>
+
+        {feedback && (
+          <div style={{
+            marginTop: 24,
+            padding: "16px 24px",
+            backgroundColor: feedback.includes("Great job") || feedback.includes("🎉") ? "#4CAF50" : "#FF9800",
+            color: "white",
+            borderRadius: 12,
+            fontSize: 18,
+            fontWeight: "bold",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
+          }}>
+            {feedback}
+          </div>
+        )}
       </div>
     </div>
   );
