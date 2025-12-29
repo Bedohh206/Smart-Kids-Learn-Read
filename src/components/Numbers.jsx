@@ -1,11 +1,38 @@
 import React from "react";
 import { numbers } from "../data/numbers";
 import { Howl } from "howler";
+import { unlockAudio } from "../utils/audioUnlock";
 
 export default function Numbers() {
-  const play = (audio) => {
+  const play = async (audio) => {
     if (!audio) return;
-    new Howl({ src: [`/audio/numbers/${audio}`], volume: 1.0 }).play();
+    try {
+      await unlockAudio();
+      console.log('Playing number audio:', audio);
+      const sound = new Howl({ 
+        src: [`/audio/numbers/${audio}`], 
+        html5: true,
+        volume: 1.0,
+        onload: () => console.log('Loaded:', audio),
+        onplay: () => console.log('Playing:', audio),
+        onloaderror: (id, error) => {
+          console.error('Error loading audio:', error);
+          const audioEl = new Audio(`/audio/numbers/${audio}`);
+          audioEl.play().catch(e => console.error('Fallback failed:', e));
+        },
+        onplayerror: (id, error) => {
+          console.error('Error playing audio:', error);
+          sound.once('unlock', () => {
+            sound.play();
+          });
+        }
+      });
+      sound.play();
+    } catch (e) {
+      console.error('Exception:', e);
+      const audioEl = new Audio(`/audio/numbers/${audio}`);
+      audioEl.play().catch(err => console.error('Fallback failed:', err));
+    }
   };
 
   return (

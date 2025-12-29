@@ -1,0 +1,11 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.home-hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}

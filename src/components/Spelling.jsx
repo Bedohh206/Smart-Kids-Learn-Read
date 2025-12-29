@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { phonicsWords } from "../data/phonics";
 import { Howl } from "howler";
+import { unlockAudio } from "../utils/audioUnlock";
 
 export default function Spelling() {
   const [index, setIndex] = useState(0);
@@ -8,8 +9,34 @@ export default function Spelling() {
   const [message, setMessage] = useState("");
   const current = phonicsWords[index];
 
-  const play = () => {
-    new Howl({ src: [`/audio/words/${current.audio}`], volume: 1.0 }).play();
+  const play = async () => {
+    try {
+      await unlockAudio();
+      console.log('Playing spelling word:', current.audio);
+      const sound = new Howl({ 
+        src: [`/audio/words/${current.audio}`], 
+        html5: true,
+        volume: 1.0,
+        onload: () => console.log('Loaded:', current.audio),
+        onplay: () => console.log('Playing:', current.audio),
+        onloaderror: (id, error) => {
+          console.error('Error loading audio:', error);
+          const audioEl = new Audio(`/audio/words/${current.audio}`);
+          audioEl.play().catch(e => console.error('Fallback failed:', e));
+        },
+        onplayerror: (id, error) => {
+          console.error('Error playing audio:', error);
+          sound.once('unlock', () => {
+            sound.play();
+          });
+        }
+      });
+      sound.play();
+    } catch (e) {
+      console.error('Exception:', e);
+      const audioEl = new Audio(`/audio/words/${current.audio}`);
+      audioEl.play().catch(err => console.error('Fallback failed:', err));
+    }
   };
 
   const check = () => {

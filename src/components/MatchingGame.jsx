@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { shapes } from "../data/shapes";
 import { Howl } from "howler";
+import { unlockAudio } from "../utils/audioUnlock";
 
 function shuffle(arr) {
   return arr
@@ -28,7 +29,35 @@ export default function MatchingGame() {
     try { localStorage.setItem("matching-score", String(score)); } catch (e) {}
   }, [score]);
 
-  const play = (audio) => new Howl({ src: [`/audio/shapes/${audio}`] }).play();
+  const play = async (audio) => {
+    try {
+      await unlockAudio();
+      console.log('Playing shape:', audio);
+      const sound = new Howl({ 
+        src: [`/audio/shapes/${audio}`],
+        html5: true,
+        volume: 1.0,
+        onload: () => console.log('Loaded:', audio),
+        onplay: () => console.log('Playing:', audio),
+        onloaderror: (id, error) => {
+          console.error('Error loading audio:', error);
+          const audioEl = new Audio(`/audio/shapes/${audio}`);
+          audioEl.play().catch(e => console.error('Fallback failed:', e));
+        },
+        onplayerror: (id, error) => {
+          console.error('Error playing audio:', error);
+          sound.once('unlock', () => {
+            sound.play();
+          });
+        }
+      });
+      sound.play();
+    } catch (e) {
+      console.error('Exception:', e);
+      const audioEl = new Audio(`/audio/shapes/${audio}`);
+      audioEl.play().catch(err => console.error('Fallback failed:', err));
+    }
+  };
 
   const onClick = (card) => {
     if (flipped.includes(card.uid) || matched.includes(card.uid)) return;
