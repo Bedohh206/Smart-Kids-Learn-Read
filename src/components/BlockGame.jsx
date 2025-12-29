@@ -357,6 +357,9 @@ export default function BlockGame() {
           </button>
           <button
             onClick={() => {
+              setMode('challenge');
+              setCurrentChallenge(null);
+              setChallengeComplete(false);
               if (voiceEnabled) speak('Challenge mode! Choose a shape to build.');
             }}
             style={{
