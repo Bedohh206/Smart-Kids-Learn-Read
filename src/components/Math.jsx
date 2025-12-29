@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 import { updateProgress, getRandomEncouragement } from "../utils/achievements";
@@ -7,6 +8,7 @@ import Confetti from "./Confetti";
 import AchievementNotification from "./AchievementNotification";
 
 export default function MathPractice() {
+  const navigate = useNavigate();
   const [operation, setOperation] = useState("addition");
   const [difficulty, setDifficulty] = useState("easy");
   const [problem, setProblem] = useState(null);
@@ -279,6 +281,28 @@ export default function MathPractice() {
           boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
           position: "relative"
         }}>
+          {/* Back Button */}
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              position: "absolute",
+              left: 32,
+              top: "50%",
+              transform: "translateY(-50%)",
+              padding: "12px 20px",
+              fontSize: 24,
+              backgroundColor: "#FF6B6B",
+              color: "white",
+              border: "none",
+              borderRadius: 12,
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+            }}
+            title="Go Back"
+          >
+            ← Back
+          </button>
+          
           <h1 style={{ 
             fontSize: 48, 
             margin: 0,

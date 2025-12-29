@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { continents } from '../data/continents';
 import { speak } from '../utils/voiceInteraction';
 
 export default function Continents() {
+  const navigate = useNavigate();
   const [selectedContinent, setSelectedContinent] = useState(null);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
 
@@ -44,6 +46,23 @@ export default function Continents() {
           justifyContent: "space-between",
           alignItems: "center"
         }}>
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              padding: "12px 20px",
+              fontSize: 24,
+              backgroundColor: "#FF6B6B",
+              color: "white",
+              border: "none",
+              borderRadius: 12,
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+            }}
+            title="Go Back"
+          >
+            ← Back
+          </button>
+          
           <h1 style={{
             fontSize: 48,
             margin: 0,

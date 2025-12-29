@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { shapes } from "../data/shapes";
 import { colors } from "../data/colors";
 import { Howl } from "howler";
@@ -6,6 +7,7 @@ import { unlockAudio } from "../utils/audioUnlock";
 import { speak } from "../utils/voiceInteraction";
 
 export default function ShapesColors() {
+  const navigate = useNavigate();
   const [voiceEnabled, setVoiceEnabled] = useState(true);
 
   const playShape = async (audio, shapeName) => {
@@ -80,6 +82,41 @@ export default function ShapesColors() {
 
   return (
     <div style={{ padding: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            padding: "12px 20px",
+            fontSize: 24,
+            backgroundColor: "#FF6B6B",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title="Go Back"
+        >
+          ← Back
+        </button>
+        <h2>Shapes & Colors</h2>
+        <button
+          onClick={toggleVoice}
+          style={{
+            padding: "12px 20px",
+            fontSize: 20,
+            backgroundColor: voiceEnabled ? "#4CAF50" : "#ccc",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title={voiceEnabled ? "Voice On" : "Voice Off"}
+        >
+          {voiceEnabled ? "🔊" : "🔇"}
+        </button>
+      </div>
       <h2>Shapes</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
         {shapes.map((shape) => (

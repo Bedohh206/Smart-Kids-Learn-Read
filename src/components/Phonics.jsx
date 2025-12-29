@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { phonicsWords } from "../data/phonics";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 import { speak } from "../utils/voiceInteraction";
 
 export default function Phonics() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState("all");
   const [index, setIndex] = useState(0);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
@@ -82,6 +84,22 @@ export default function Phonics() {
   return (
     <div style={{ padding: 24 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            padding: "12px 20px",
+            fontSize: 24,
+            backgroundColor: "#FF6B6B",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title="Go Back"
+        >
+          ← Back
+        </button>
         <h2>Sound it Out - Phonics</h2>
         <button
           onClick={toggleVoice}

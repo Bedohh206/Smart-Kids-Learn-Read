@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { numbers } from "../data/numbers";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 import { speak } from "../utils/voiceInteraction";
 
 export default function Numbers() {
+  const navigate = useNavigate();
   const [voiceEnabled, setVoiceEnabled] = useState(true);
 
   const play = async (audio, number) => {
@@ -54,6 +56,22 @@ export default function Numbers() {
   return (
     <div style={{ padding: 20 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <button
+          onClick={() => navigate(-1)}
+          style={{
+            padding: "12px 20px",
+            fontSize: 24,
+            backgroundColor: "#FF6B6B",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title="Go Back"
+        >
+          ← Back
+        </button>
         <h2>Numbers</h2>
         <button
           onClick={toggleVoice}
