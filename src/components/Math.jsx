@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 import { updateProgress, getRandomEncouragement } from "../utils/achievements";
+import { speak, startListening, stopListening, matchesNumber, encourageChild, askQuestion } from "../utils/voiceInteraction";
 import Confetti from "./Confetti";
 import AchievementNotification from "./AchievementNotification";
 
@@ -15,6 +16,9 @@ export default function MathPractice() {
   const [attempts, setAttempts] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [newAchievement, setNewAchievement] = useState(null);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [recognition, setRecognition] = useState(null);
 
   // Generate a new math problem
   const generateProblem = () => {
@@ -97,6 +101,13 @@ export default function MathPractice() {
     });
     setAnswer("");
     setMessage("");
+    
+    // Speak the problem after a short delay
+    if (voiceEnabled) {
+      setTimeout(() => {
+        askQuestion(`What is ${questionText}?`);
+      }, 500);
+    }
   };
 
   useEffect(() => {
@@ -132,6 +143,11 @@ export default function MathPractice() {
       playSound(true);
       setShowConfetti(true);
       
+      // Voice encouragement
+      if (voiceEnabled) {
+        encourageChild(true);
+      }
+      
       // Track progress and check achievements
       const newScore = score + 1;
       const percentage = Math.round((newScore / (attempts + 1)) * 100);
@@ -148,6 +164,11 @@ export default function MathPractice() {
     } else {
       setMessage(`✗ Not quite. Try again!`);
       playSound(false);
+      
+      // Voice encouragement to try again
+      if (voiceEnabled) {
+        encourageChild(false);
+      }
     }
   };
 
@@ -159,6 +180,70 @@ export default function MathPractice() {
 
   const handleDifficultyChange = (newDifficulty) => {
     setDifficulty(newDifficulty);
+  };
+
+  // Voice Answer - Listen for spoken answer
+  const handleVoiceAnswer = () => {
+    if (isListening) {
+      // Stop listening
+      if (recognition) {
+        stopListening(recognition);
+        setRecognition(null);
+      }
+      setIsListening(false);
+      return;
+    }
+
+    // Start listening
+    setIsListening(true);
+    if (voiceEnabled) {
+      speak("I'm listening!");
+    }
+
+    const recog = startListening(
+      (results) => {
+        setIsListening(false);
+        if (results && results.length > 0) {
+          const spokenAnswer = results[0].transcript;
+          console.log('Heard:', spokenAnswer);
+          
+          // Check if spoken answer matches the correct answer
+          if (matchesNumber(spokenAnswer, problem.correctAnswer)) {
+            setAnswer(String(problem.correctAnswer));
+            setTimeout(() => checkAnswer(), 500);
+          } else {
+            // Try to parse as number
+            const num = parseInt(spokenAnswer.replace(/[^0-9]/g, ''));
+            if (!isNaN(num)) {
+              setAnswer(String(num));
+              setTimeout(() => checkAnswer(), 500);
+            } else {
+              if (voiceEnabled) {
+                speak("I didn't quite catch that. Try typing the answer or say it again!");
+              }
+              setMessage("🎤 Try saying your answer again!");
+            }
+          }
+        }
+      },
+      (error) => {
+        setIsListening(false);
+        console.error('Speech recognition error:', error);
+        if (voiceEnabled) {
+          speak("Oops! I couldn't hear you. Try again or type your answer!");
+        }
+      }
+    );
+    
+    setRecognition(recog);
+  };
+
+  // Toggle voice
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      speak("Voice assistant turned on!");
+    }
   };
 
   if (!problem) return <div>Loading...</div>;
@@ -191,7 +276,8 @@ export default function MathPractice() {
           padding: "24px 32px",
           marginBottom: 24,
           textAlign: "center",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.15)"
+          boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+          position: "relative"
         }}>
           <h1 style={{ 
             fontSize: 48, 
@@ -203,6 +289,29 @@ export default function MathPractice() {
           }}>
             🎯 Math Practice
           </h1>
+          
+          {/* Voice Toggle Button */}
+          <button
+            onClick={toggleVoice}
+            style={{
+              position: "absolute",
+              right: 32,
+              top: "50%",
+              transform: "translateY(-50%)",
+              padding: "12px 20px",
+              fontSize: 24,
+              backgroundColor: voiceEnabled ? "#4CAF50" : "#ccc",
+              color: "white",
+              border: "none",
+              borderRadius: 12,
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+              transition: "all 0.3s"
+            }}
+            title={voiceEnabled ? "Voice On" : "Voice Off"}
+          >
+            {voiceEnabled ? "🔊" : "🔇"}
+          </button>
         </div>
 
         {/* Operation Selection */}
@@ -391,6 +500,28 @@ export default function MathPractice() {
             />
             
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+              {/* Voice Answer Button */}
+              <button 
+                onClick={handleVoiceAnswer}
+                style={{
+                  padding: "18px 48px",
+                  fontSize: 24,
+                  backgroundColor: isListening ? "#f44336" : "#9C27B0",
+                  color: "white",
+                  border: "none",
+                  borderRadius: 16,
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  boxShadow: isListening ? "0 6px 20px rgba(244, 67, 54, 0.4)" : "0 6px 20px rgba(156, 39, 176, 0.4)",
+                  transition: "all 0.2s",
+                  animation: isListening ? "pulse 1s infinite" : "none"
+                }}
+                onMouseOver={(e) => !isListening && (e.target.style.transform = "scale(1.05)")}
+                onMouseOut={(e) => e.target.style.transform = "scale(1)"}
+              >
+                {isListening ? "🎤 Listening..." : "🎤 Say Answer"}
+              </button>
+              
               <button 
                 onClick={checkAnswer}
                 style={{
@@ -462,6 +593,20 @@ export default function MathPractice() {
           onClose={() => setNewAchievement(null)}
         />
       )}
+      
+      {/* Pulse animation for listening state */}
+      <style>
+        {`
+          @keyframes pulse {
+            0%, 100% {
+              box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+            }
+            50% {
+              box-shadow: 0 6px 30px rgba(244, 67, 54, 0.8);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }

@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { phonicsWords } from "../data/phonics";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
+import { speak, startListening, stopListening, matchesWord, encourageChild } from "../utils/voiceInteraction";
 
 export default function Spelling() {
   const [category, setCategory] = useState("all");
   const [index, setIndex] = useState(0);
   const [guess, setGuess] = useState("");
   const [message, setMessage] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [recognition, setRecognition] = useState(null);
 
   // Filter words by category
   const getFilteredWords = () => {
@@ -61,8 +65,76 @@ export default function Spelling() {
   const check = () => {
     if (guess.trim().toLowerCase() === current.word.toLowerCase()) {
       setMessage("✓ Correct! Great job!");
+      if (voiceEnabled) {
+        encourageChild(true);
+      }
     } else {
       setMessage("✗ Try again");
+      if (voiceEnabled) {
+        encourageChild(false);
+      }
+    }
+  };
+
+  const handleVoiceSpelling = () => {
+    if (isListening) {
+      if (recognition) {
+        stopListening(recognition);
+        setRecognition(null);
+      }
+      setIsListening(false);
+      return;
+    }
+
+    setIsListening(true);
+    if (voiceEnabled) {
+      speak("Spell the word!");
+    }
+
+    const recog = startListening(
+      (results) => {
+        setIsListening(false);
+        if (results && results.length > 0) {
+          const spokenWord = results[0].transcript;
+          console.log('Heard:', spokenWord);
+          
+          if (matchesWord(spokenWord, current.word)) {
+            setGuess(current.word);
+            setMessage("✓ Correct! Great job!");
+            if (voiceEnabled) {
+              encourageChild(true);
+            }
+          } else {
+            setGuess(spokenWord);
+            setTimeout(() => check(), 500);
+          }
+        }
+      },
+      (error) => {
+        setIsListening(false);
+        console.error('Speech recognition error:', error);
+        if (voiceEnabled) {
+          speak("I couldn't hear you. Try again!");
+        }
+      }
+    );
+    
+    setRecognition(recog);
+  };
+
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      speak("Voice assistant turned on!");
+    }
+  };
+
+  const playWithVoicePrompt = async () => {
+    await play();
+    if (voiceEnabled) {
+      setTimeout(() => {
+        speak(`Can you spell the word you just heard?`);
+      }, 1000);
     }
   };
 
@@ -81,7 +153,25 @@ export default function Spelling() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h2>Spelling Practice</h2>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h2>Spelling Practice</h2>
+        <button
+          onClick={toggleVoice}
+          style={{
+            padding: "12px 20px",
+            fontSize: 20,
+            backgroundColor: voiceEnabled ? "#4CAF50" : "#ccc",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title={voiceEnabled ? "Voice On" : "Voice Off"}
+        >
+          {voiceEnabled ? "🔊" : "🔇"}
+        </button>
+      </div>
 
       <div style={{ marginBottom: 24 }}>
         <label style={{ fontWeight: "bold", marginRight: 12 }}>Select Category:</label>
