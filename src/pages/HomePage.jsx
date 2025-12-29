@@ -72,6 +72,13 @@ export default function HomePage() {
 						<span className="button-arrow">→</span>
 					</Link>
 				</div>
+
+				{/* Progress Button */}
+				<div className="start-button-container" style={{ marginTop: '20px' }}>
+					<Link to="/leaderboard" className="progress-button">
+						<span className="button-text">🏆 View Your Progress</span>
+					</Link>
+				</div>
 			</div>
 
 			{/* Floating Elements */}

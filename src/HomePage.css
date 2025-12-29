@@ -307,6 +307,28 @@
   transform: translateX(10px);
 }
 
+/* Progress Button */
+.progress-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(69, 183, 209, 0.4);
+  transition: all 0.3s ease;
+  border: 4px solid white;
+}
+
+.progress-button:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 20px 60px rgba(69, 183, 209, 0.6);
+}
+
 /* Floating Elements */
 .floating-elements {
   position: fixed;

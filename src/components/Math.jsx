@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
+import { updateProgress, getRandomEncouragement } from "../utils/achievements";
+import Confetti from "./Confetti";
+import AchievementNotification from "./AchievementNotification";
 
 export default function MathPractice() {
   const [operation, setOperation] = useState("addition");
@@ -10,6 +13,8 @@ export default function MathPractice() {
   const [message, setMessage] = useState("");
   const [score, setScore] = useState(0);
   const [attempts, setAttempts] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [newAchievement, setNewAchievement] = useState(null);
 
   // Generate a new math problem
   const generateProblem = () => {
@@ -121,10 +126,23 @@ export default function MathPractice() {
     setAttempts(attempts + 1);
 
     if (userAnswer === problem.correctAnswer) {
-      setMessage("✓ Correct! Great job!");
+      const encouragement = getRandomEncouragement();
+      setMessage(`✓ Correct! ${encouragement}`);
       setScore(score + 1);
       playSound(true);
+      setShowConfetti(true);
+      
+      // Track progress and check achievements
+      const newScore = score + 1;
+      const percentage = Math.round((newScore / (attempts + 1)) * 100);
+      const result = updateProgress('math', { score: percentage });
+      
+      if (result.newAchievements.length > 0) {
+        setNewAchievement(result.newAchievements[0]);
+      }
+      
       setTimeout(() => {
+        setShowConfetti(false);
         generateProblem();
       }, 1500);
     } else {
@@ -433,6 +451,17 @@ export default function MathPractice() {
           )}
         </div>
       </div>
+
+      {/* Confetti Effect */}
+      {showConfetti && <Confetti duration={3000} />}
+
+      {/* Achievement Notification */}
+      {newAchievement && (
+        <AchievementNotification 
+          achievement={newAchievement} 
+          onClose={() => setNewAchievement(null)}
+        />
+      )}
     </div>
   );
 }
