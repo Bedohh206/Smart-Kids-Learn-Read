@@ -20,13 +20,15 @@ export const speak = (text, options = {}) => {
     utterance.volume = options.volume || 1;
     utterance.lang = options.lang || 'en-US';
 
-    // Try to find a child-friendly voice
+    // Try to find a child-friendly female voice
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 0) {
       // Prefer female voices as they're often clearer for children
       const preferredVoice = voices.find(v => 
-        v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
-      ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+        v.lang.startsWith('en') && v.name.toLowerCase().includes('female')
+      ) || voices.find(v => 
+        v.lang.startsWith('en') && (v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Victoria'))
+      ) || voices.find(v => v.lang.startsWith('en') && !v.name.toLowerCase().includes('male')) || voices[0];
       
       utterance.voice = preferredVoice;
     }

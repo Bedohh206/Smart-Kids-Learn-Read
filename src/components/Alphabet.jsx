@@ -84,7 +84,10 @@ export default function Alphabet() {
             aria-label={`Play sound for letter ${item.letter}`}
           title={`Play ${item.letter}`}
         >
-          <h1>{item.letter}</h1>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+            <h1 style={{ margin: 0 }}>{item.letter}</h1>
+            <h2 style={{ margin: 0, fontSize: "48px", color: "#666" }}>{item.letter.toLowerCase()}</h2>
+          </div>
           <p>{item.sound}</p>
           <small>{item.word}</small>
         </button>
