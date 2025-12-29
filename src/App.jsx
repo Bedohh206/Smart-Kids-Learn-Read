@@ -13,6 +13,7 @@ import Quiz from "./components/Quiz";
 import Leaderboard from "./components/Leaderboard";
 import Continents from "./components/Continents";
 import BlockGame from "./components/BlockGame";
+import GlobalVoiceCommand from "./components/GlobalVoiceCommand";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/blocks" element={<BlockGame />} />
         <Route path="/learn" element={<LearnPage />} />
       </Routes>
+      <GlobalVoiceCommand />
     </BrowserRouter>
   );
 }
