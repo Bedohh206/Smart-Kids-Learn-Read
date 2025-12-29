@@ -49,6 +49,14 @@ async function main() {
     await generateAudio(shape, `${baseDir}/shapes/${shape}.mp3`);
   }
   
+  // Colors
+  console.log('\n=== Generating Colors ===');
+  fs.mkdirSync(`${baseDir}/colors`, { recursive: true });
+  const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'purple'];
+  for (let color of colors) {
+    await generateAudio(color, `${baseDir}/colors/${color}.mp3`);
+  }
+  
   console.log('\n✅ All audio files generated!');
 }
 
