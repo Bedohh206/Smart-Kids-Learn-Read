@@ -181,11 +181,20 @@ export default function Phonics() {
     }
   };
 
+  const handleBack = () => {
+    // If there's history, go back, otherwise go home
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div style={{ padding: 24 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
         <button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           style={{
             padding: "12px 20px",
             fontSize: 24,
