@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { shapes } from "../data/shapes";
 import { colors } from "../data/colors";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
+import { speak } from "../utils/voiceInteraction";
 
 export default function ShapesColors() {
-  const playShape = async (audio) => {
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+
+  const playShape = async (audio, shapeName) => {
+    // Speak the shape first
+    if (voiceEnabled) {
+      await speak(`This is a ${shapeName}`);
+    }
+    
     try {
       await unlockAudio();
       console.log('Playing shape:', audio);
@@ -35,7 +43,12 @@ export default function ShapesColors() {
     }
   };
 
-  const playColor = async (audio) => {
+  const playColor = async (audio, colorName) => {
+    // Speak the color first
+    if (voiceEnabled) {
+      await speak(`The color ${colorName}`);
+    }
+    
     try {
       await unlockAudio();
       console.log('Playing color:', audio);
@@ -72,7 +85,7 @@ export default function ShapesColors() {
         {shapes.map((shape) => (
           <button
             key={shape.name}
-            onClick={() => playShape(shape.audio)}
+            onClick={() => playShape(shape.audio, shape.name)}
             style={{
               padding: 24,
               fontSize: 20,
@@ -99,7 +112,7 @@ export default function ShapesColors() {
         {colors.map((color) => (
           <button
             key={color.name}
-            onClick={() => playColor(color.audio)}
+            onClick={() => playColor(color.audio, color.name)}
             style={{
               padding: 24,
               fontSize: 20,

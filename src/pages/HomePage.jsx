@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import heroImage from "../assets/images/home/main-hero.png";
+import { greetChild } from "../utils/voiceInteraction";
 import "../HomePage.css";
 
 export default function HomePage() {
@@ -12,6 +13,14 @@ export default function HomePage() {
 		{ path: "/spelling", title: "Spelling", emoji: "✏️", color: "#FFEAA7", desc: "Spell words!" },
 		{ path: "/shapes-colors", title: "Shapes & Colors", emoji: "🎨", color: "#DDA15E", desc: "Learn shapes!" }
 	];
+
+	// Greet child when page loads
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			greetChild();
+		}, 1000);
+		return () => clearTimeout(timer);
+	}, []);
 
 	return (
 		<div className="home-page">

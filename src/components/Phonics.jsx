@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { phonicsWords } from "../data/phonics";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
+import { speak } from "../utils/voiceInteraction";
 
 export default function Phonics() {
   const [category, setCategory] = useState("all");
   const [index, setIndex] = useState(0);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
 
   // Filter words by category
   const getFilteredWords = () => {
@@ -27,6 +29,11 @@ export default function Phonics() {
   const current = filteredWords[index] || phonicsWords[0];
 
   const playWord = async () => {
+    // Speak instruction first
+    if (voiceEnabled) {
+      await speak(`Sound out the word: ${current.word}`);
+    }
+    
     try {
       await unlockAudio();
       console.log('Playing word:', current.audio);
@@ -65,9 +72,34 @@ export default function Phonics() {
     setIndex(0);
   };
 
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      speak("Voice assistant turned on!");
+    }
+  };
+
   return (
     <div style={{ padding: 24 }}>
-      <h2>Sound it Out - Phonics</h2>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h2>Sound it Out - Phonics</h2>
+        <button
+          onClick={toggleVoice}
+          style={{
+            padding: "12px 20px",
+            fontSize: 20,
+            backgroundColor: voiceEnabled ? "#4CAF50" : "#ccc",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title={voiceEnabled ? "Voice On" : "Voice Off"}
+        >
+          {voiceEnabled ? "🔊" : "🔇"}
+        </button>
+      </div>
 
       <div style={{ marginBottom: 24 }}>
         <label style={{ fontWeight: "bold", marginRight: 12 }}>Select Category:</label>

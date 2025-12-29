@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { alphabet } from "../data/alphabet";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
+import { speak } from "../utils/voiceInteraction";
 
 export default function Alphabet() {
-  const playSound = async (audio) => {
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+
+  const playSound = async (audio, letter) => {
+    // Speak the letter first
+    if (voiceEnabled) {
+      await speak(`The letter ${letter}`);
+    }
     try {
       await unlockAudio();
       console.log('Attempting to play:', `/audio/letters/${audio}`);
@@ -40,14 +47,41 @@ export default function Alphabet() {
     }
   };
 
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      speak("Voice assistant turned on!");
+    }
+  };
+
   return (
-    <div className="grid">
-      {alphabet.map((item) => (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 20px 0" }}>
+        <h2>Alphabet</h2>
         <button
-          key={item.letter}
-          className="card"
-          onClick={() => playSound(item.audio)}
-          aria-label={`Play sound for letter ${item.letter}`}
+          onClick={toggleVoice}
+          style={{
+            padding: "12px 20px",
+            fontSize: 20,
+            backgroundColor: voiceEnabled ? "#4CAF50" : "#ccc",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}
+          title={voiceEnabled ? "Voice On" : "Voice Off"}
+        >
+          {voiceEnabled ? "🔊" : "🔇"}
+        </button>
+      </div>
+      <div className="grid">
+        {alphabet.map((item) => (
+          <button
+            key={item.letter}
+            className="card"
+            onClick={() => playSound(item.audio, item.letter)}
+            aria-label={`Play sound for letter ${item.letter}`}
           title={`Play ${item.letter}`}
         >
           <h1>{item.letter}</h1>
@@ -55,6 +89,7 @@ export default function Alphabet() {
           <small>{item.word}</small>
         </button>
       ))}
+      </div>
     </div>
   );
 }
