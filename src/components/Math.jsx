@@ -145,215 +145,293 @@ export default function MathPractice() {
 
   if (!problem) return <div>Loading...</div>;
 
+  const operationEmojis = {
+    addition: "➕",
+    subtraction: "➖",
+    multiplication: "✖️",
+    division: "➗"
+  };
+
+  const operationColors = {
+    addition: { bg: "#4CAF50", light: "#C8E6C9" },
+    subtraction: { bg: "#2196F3", light: "#BBDEFB" },
+    multiplication: { bg: "#FF9800", light: "#FFE0B2" },
+    division: { bg: "#9C27B0", light: "#E1BEE7" }
+  };
+
   return (
-    <div style={{ padding: 24 }}>
-      <h2>Math Practice</h2>
-
-      {/* Operation Selection */}
-      <div style={{ marginBottom: 24 }}>
-        <label style={{ fontWeight: "bold", marginRight: 12 }}>Select Operation:</label>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
-          <button
-            onClick={() => handleOperationChange("addition")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: operation === "addition" ? "#4CAF50" : "#f0f0f0",
-              color: operation === "addition" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: operation === "addition" ? "bold" : "normal"
-            }}
-          >
-            ➕ Addition
-          </button>
-          <button
-            onClick={() => handleOperationChange("subtraction")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: operation === "subtraction" ? "#2196F3" : "#f0f0f0",
-              color: operation === "subtraction" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: operation === "subtraction" ? "bold" : "normal"
-            }}
-          >
-            ➖ Subtraction
-          </button>
-          <button
-            onClick={() => handleOperationChange("multiplication")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: operation === "multiplication" ? "#FF9800" : "#f0f0f0",
-              color: operation === "multiplication" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: operation === "multiplication" ? "bold" : "normal"
-            }}
-          >
-            ✖️ Multiplication
-          </button>
-          <button
-            onClick={() => handleOperationChange("division")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: operation === "division" ? "#9C27B0" : "#f0f0f0",
-              color: operation === "division" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: operation === "division" ? "bold" : "normal"
-            }}
-          >
-            ➗ Division
-          </button>
-        </div>
-      </div>
-
-      {/* Difficulty Selection */}
-      <div style={{ marginBottom: 24 }}>
-        <label style={{ fontWeight: "bold", marginRight: 12 }}>Difficulty:</label>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
-          <button
-            onClick={() => handleDifficultyChange("easy")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: difficulty === "easy" ? "#4CAF50" : "#f0f0f0",
-              color: difficulty === "easy" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: difficulty === "easy" ? "bold" : "normal"
-            }}
-          >
-            Easy
-          </button>
-          <button
-            onClick={() => handleDifficultyChange("medium")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: difficulty === "medium" ? "#FF9800" : "#f0f0f0",
-              color: difficulty === "medium" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: difficulty === "medium" ? "bold" : "normal"
-            }}
-          >
-            Medium
-          </button>
-          <button
-            onClick={() => handleDifficultyChange("hard")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: difficulty === "hard" ? "#f44336" : "#f0f0f0",
-              color: difficulty === "hard" ? "white" : "black",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontWeight: difficulty === "hard" ? "bold" : "normal"
-            }}
-          >
-            Hard
-          </button>
-        </div>
-      </div>
-
-      {/* Score Display */}
-      <div style={{ 
-        backgroundColor: "#e3f2fd", 
-        padding: 16, 
-        borderRadius: 8,
-        marginBottom: 24,
-        textAlign: "center"
-      }}>
-        <p style={{ margin: 0, fontSize: 18, fontWeight: "bold" }}>
-          Score: {score} / {attempts} 
-          {attempts > 0 && ` (${Math.round((score/attempts) * 100)}%)`}
-        </p>
-      </div>
-
-      {/* Problem Display */}
-      <div style={{ 
-        padding: 48, 
-        backgroundColor: "#f5f5f5", 
-        borderRadius: 8,
-        textAlign: "center"
-      }}>
-        <div style={{ 
-          fontSize: 72, 
-          fontWeight: "bold", 
-          marginBottom: 32,
-          fontFamily: "monospace"
+    <div style={{ 
+      minHeight: "100vh",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      padding: 24 
+    }}>
+      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{
+          background: "white",
+          borderRadius: 20,
+          padding: "24px 32px",
+          marginBottom: 24,
+          textAlign: "center",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.15)"
         }}>
-          {problem.questionText}
+          <h1 style={{ 
+            fontSize: 48, 
+            margin: 0,
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: "bold"
+          }}>
+            🎯 Math Practice
+          </h1>
         </div>
 
-        <div style={{ marginBottom: 24 }}>
-          <input 
-            type="number"
-            value={answer} 
-            onChange={(e) => setAnswer(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
-            placeholder="Your answer" 
-            style={{
-              padding: 16,
-              fontSize: 32,
-              width: 200,
-              textAlign: "center",
-              borderRadius: 8,
-              border: "2px solid #ddd",
-              marginBottom: 16
-            }}
-            autoFocus
-          />
-          
-          <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-            <button 
-              onClick={checkAnswer}
+        {/* Operation Selection */}
+        <div style={{ 
+          background: "white",
+          borderRadius: 20,
+          padding: 24,
+          marginBottom: 20,
+          boxShadow: "0 8px 32px rgba(0,0,0,0.15)"
+        }}>
+          <label style={{ 
+            fontSize: 22, 
+            fontWeight: "bold", 
+            display: "block",
+            marginBottom: 16,
+            color: "#333"
+          }}>
+            🎲 Choose Your Challenge:
+          </label>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {["addition", "subtraction", "multiplication", "division"].map((op) => (
+              <button
+                key={op}
+                onClick={() => handleOperationChange(op)}
+                style={{
+                  flex: "1 1 180px",
+                  padding: "16px 24px",
+                  fontSize: 20,
+                  backgroundColor: operation === op ? operationColors[op].bg : "#f5f5f5",
+                  color: operation === op ? "white" : "#333",
+                  border: operation === op ? "3px solid #333" : "3px solid transparent",
+                  borderRadius: 16,
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  boxShadow: operation === op ? "0 6px 20px rgba(0,0,0,0.25)" : "0 2px 8px rgba(0,0,0,0.1)",
+                  transform: operation === op ? "translateY(-2px)" : "none",
+                  transition: "all 0.2s"
+                }}
+              >
+                {operationEmojis[op]} {op.charAt(0).toUpperCase() + op.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Difficulty Selection */}
+        <div style={{ 
+          background: "white",
+          borderRadius: 20,
+          padding: 24,
+          marginBottom: 20,
+          boxShadow: "0 8px 32px rgba(0,0,0,0.15)"
+        }}>
+          <label style={{ 
+            fontSize: 22, 
+            fontWeight: "bold", 
+            display: "block",
+            marginBottom: 16,
+            color: "#333"
+          }}>
+            🎚️ Pick Your Level:
+          </label>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <button
+              onClick={() => handleDifficultyChange("easy")}
               style={{
-                padding: "12px 32px",
+                flex: "1 1 150px",
+                padding: "16px 24px",
                 fontSize: 20,
-                backgroundColor: "#4CAF50",
-                color: "white",
-                border: "none",
-                borderRadius: 8,
-                cursor: "pointer"
+                backgroundColor: difficulty === "easy" ? "#4CAF50" : "#f5f5f5",
+                color: difficulty === "easy" ? "white" : "#333",
+                border: difficulty === "easy" ? "3px solid #2E7D32" : "3px solid transparent",
+                borderRadius: 16,
+                cursor: "pointer",
+                fontWeight: "bold",
+                boxShadow: difficulty === "easy" ? "0 6px 20px rgba(0,0,0,0.25)" : "0 2px 8px rgba(0,0,0,0.1)",
+                transform: difficulty === "easy" ? "scale(1.05)" : "none",
+                transition: "all 0.2s"
               }}
             >
-              Check Answer
+              😊 Easy
             </button>
-            <button 
-              onClick={generateProblem}
+            <button
+              onClick={() => handleDifficultyChange("medium")}
               style={{
-                padding: "12px 32px",
+                flex: "1 1 150px",
+                padding: "16px 24px",
                 fontSize: 20,
-                backgroundColor: "#2196F3",
-                color: "white",
-                border: "none",
-                borderRadius: 8,
-                cursor: "pointer"
+                backgroundColor: difficulty === "medium" ? "#FF9800" : "#f5f5f5",
+                color: difficulty === "medium" ? "white" : "#333",
+                border: difficulty === "medium" ? "3px solid #E65100" : "3px solid transparent",
+                borderRadius: 16,
+                cursor: "pointer",
+                fontWeight: "bold",
+                boxShadow: difficulty === "medium" ? "0 6px 20px rgba(0,0,0,0.25)" : "0 2px 8px rgba(0,0,0,0.1)",
+                transform: difficulty === "medium" ? "scale(1.05)" : "none",
+                transition: "all 0.2s"
               }}
             >
-              Skip
+              😎 Medium
+            </button>
+            <button
+              onClick={() => handleDifficultyChange("hard")}
+              style={{
+                flex: "1 1 150px",
+                padding: "16px 24px",
+                fontSize: 20,
+                backgroundColor: difficulty === "hard" ? "#f44336" : "#f5f5f5",
+                color: difficulty === "hard" ? "white" : "#333",
+                border: difficulty === "hard" ? "3px solid #c62828" : "3px solid transparent",
+                borderRadius: 16,
+                cursor: "pointer",
+                fontWeight: "bold",
+                boxShadow: difficulty === "hard" ? "0 6px 20px rgba(0,0,0,0.25)" : "0 2px 8px rgba(0,0,0,0.1)",
+                transform: difficulty === "hard" ? "scale(1.05)" : "none",
+                transition: "all 0.2s"
+              }}
+            >
+              🔥 Hard
             </button>
           </div>
         </div>
 
-        {message && (
-          <p 
-            style={{
-              marginTop: 24,
-              fontSize: 28,
-              fontWeight: "bold",
-              color: message.includes("✓") ? "#4CAF50" : "#f44336"
-            }}
-          >
-            {message}
-          </p>
-        )}
+        {/* Score Display */}
+        <div style={{ 
+          background: "linear-gradient(135deg, #FFF176 0%, #FFD54F 100%)",
+          padding: 24,
+          borderRadius: 20,
+          marginBottom: 20,
+          textAlign: "center",
+          border: "4px solid #FBC02D",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.15)"
+        }}>
+          <div style={{ fontSize: 28, fontWeight: "bold", color: "#F57F17" }}>
+            ⭐ Score: {score} / {attempts} 
+            {attempts > 0 && ` = ${Math.round((score/attempts) * 100)}% 🎉`}
+          </div>
+        </div>
+
+        {/* Problem Display */}
+        <div style={{ 
+          background: operationColors[operation].light,
+          padding: "48px 32px",
+          borderRadius: 24,
+          textAlign: "center",
+          border: `6px solid ${operationColors[operation].bg}`,
+          boxShadow: "0 12px 48px rgba(0,0,0,0.2)"
+        }}>
+          <div style={{
+            background: "white",
+            borderRadius: 20,
+            padding: 32,
+            marginBottom: 32,
+            boxShadow: "0 4px 16px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{ 
+              fontSize: 96, 
+              fontWeight: "bold", 
+              color: operationColors[operation].bg,
+              fontFamily: "Arial, sans-serif",
+              textShadow: "3px 3px 6px rgba(0,0,0,0.1)"
+            }}>
+              {problem.questionText}
+            </div>
+          </div>
+
+          <div>
+            <input 
+              type="number"
+              value={answer} 
+              onChange={(e) => setAnswer(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
+              placeholder="?" 
+              style={{
+                padding: "20px",
+                fontSize: 48,
+                width: 280,
+                textAlign: "center",
+                borderRadius: 16,
+                border: "4px solid " + operationColors[operation].bg,
+                marginBottom: 24,
+                fontWeight: "bold",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
+              }}
+              autoFocus
+            />
+            
+            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+              <button 
+                onClick={checkAnswer}
+                style={{
+                  padding: "18px 48px",
+                  fontSize: 24,
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                  border: "none",
+                  borderRadius: 16,
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  boxShadow: "0 6px 20px rgba(76, 175, 80, 0.4)",
+                  transition: "all 0.2s"
+                }}
+                onMouseOver={(e) => e.target.style.transform = "scale(1.05)"}
+                onMouseOut={(e) => e.target.style.transform = "scale(1)"}
+              >
+                ✓ Check Answer
+              </button>
+              <button 
+                onClick={generateProblem}
+                style={{
+                  padding: "18px 48px",
+                  fontSize: 24,
+                  backgroundColor: "#FF9800",
+                  color: "white",
+                  border: "none",
+                  borderRadius: 16,
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  boxShadow: "0 6px 20px rgba(255, 152, 0, 0.4)",
+                  transition: "all 0.2s"
+                }}
+                onMouseOver={(e) => e.target.style.transform = "scale(1.05)"}
+                onMouseOut={(e) => e.target.style.transform = "scale(1)"}
+              >
+                ⏭️ Next Problem
+              </button>
+            </div>
+          </div>
+
+          {message && (
+            <div 
+              style={{
+                marginTop: 32,
+                padding: "20px 32px",
+                fontSize: 36,
+                fontWeight: "bold",
+                color: "white",
+                backgroundColor: message.includes("✓") ? "#4CAF50" : "#f44336",
+                borderRadius: 16,
+                boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
+                animation: "bounce 0.5s"
+              }}
+            >
+              {message}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
