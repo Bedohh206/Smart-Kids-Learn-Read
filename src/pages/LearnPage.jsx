@@ -55,6 +55,7 @@ export default function LearnPage() {
 				<li><Link to="/spelling">Spelling</Link></li>
 				<li><Link to="/shapes-colors">Shapes & Colors</Link></li>
 				<li><Link to="/continents">Continents</Link></li>
+				<li><Link to="/blocks">Block Game</Link></li>
 				<li><Link to="/matching">Matching Game</Link></li>
 				<li><Link to="/quiz">Quiz</Link></li>
 			</ul>

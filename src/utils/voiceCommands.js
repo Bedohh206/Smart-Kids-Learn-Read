@@ -37,6 +37,11 @@ const commandPatterns = {
     /\blearn.*continents?\b/i,
     /\bexplore.*world\b/i
   ],
+  blocks: [
+    /\b(blocks?|build|building|tower|stack)\b/i,
+    /\bblock.*game\b/i,
+    /\bplay.*blocks?\b/i
+  ],
   leaderboard: [
     /\b(leaderboard|leader board|progress|achievements?|badges?|score|stats)\b/i,
     /\bshow.*progress\b/i,
@@ -75,6 +80,7 @@ export const getFriendlyName = (path) => {
     math: 'Math Practice',
     'shapes-colors': 'Shapes and Colors',
     continents: 'Continents',
+    blocks: 'Block Game',
     leaderboard: 'Leaderboard',
     home: 'Home'
   };

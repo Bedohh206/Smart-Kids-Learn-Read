@@ -12,6 +12,7 @@ import MatchingGame from "./components/MatchingGame";
 import Quiz from "./components/Quiz";
 import Leaderboard from "./components/Leaderboard";
 import Continents from "./components/Continents";
+import BlockGame from "./components/BlockGame";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/continents" element={<Continents />} />
+        <Route path="/blocks" element={<BlockGame />} />
         <Route path="/learn" element={<LearnPage />} />
       </Routes>
     </BrowserRouter>
