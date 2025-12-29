@@ -11,6 +11,7 @@ import ShapesColors from "./components/ShapesColors";
 import MatchingGame from "./components/MatchingGame";
 import Quiz from "./components/Quiz";
 import Leaderboard from "./components/Leaderboard";
+import Continents from "./components/Continents";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/matching" element={<MatchingGame />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/continents" element={<Continents />} />
         <Route path="/learn" element={<LearnPage />} />
       </Routes>
     </BrowserRouter>

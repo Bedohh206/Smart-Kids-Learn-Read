@@ -11,7 +11,8 @@ export default function HomePage() {
 		{ path: "/numbers", title: "Numbers", emoji: "🔢", color: "#45B7D1", desc: "Count with us!" },
 		{ path: "/math", title: "Math Practice", emoji: "➕", color: "#96CEB4", desc: "Solve problems!" },
 		{ path: "/spelling", title: "Spelling", emoji: "✏️", color: "#FFEAA7", desc: "Spell words!" },
-		{ path: "/shapes-colors", title: "Shapes & Colors", emoji: "🎨", color: "#DDA15E", desc: "Learn shapes!" }
+		{ path: "/shapes-colors", title: "Shapes & Colors", emoji: "🎨", color: "#DDA15E", desc: "Learn shapes!" },
+		{ path: "/continents", title: "Continents", emoji: "🌍", color: "#54A0FF", desc: "Explore the world!" }
 	];
 
 	// Greet child when page loads
