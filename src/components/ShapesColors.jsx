@@ -10,6 +10,13 @@ export default function ShapesColors() {
   const navigate = useNavigate();
   const [voiceEnabled, setVoiceEnabled] = useState(true);
 
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      speak("Voice assistant turned on!");
+    }
+  };
+
   const playShape = async (audio, shapeName) => {
     // Speak the shape first
     if (voiceEnabled) {
