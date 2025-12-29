@@ -14,6 +14,7 @@ import Leaderboard from "./components/Leaderboard";
 import Continents from "./components/Continents";
 import BlockGame from "./components/BlockGame";
 import GlobalVoiceCommand from "./components/GlobalVoiceCommand";
+import VoiceCommandTip from "./components/VoiceCommandTip";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         v7_relativeSplatPath: true
       }}
     >
+      <VoiceCommandTip />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/alphabet" element={<Alphabet />} />

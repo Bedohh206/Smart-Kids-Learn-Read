@@ -14,11 +14,11 @@ const commandPatterns = {
     /\bshow.*numbers?\b/i
   ],
   phonics: [
-    /\b(phonics?|sounds?|sound.*out)\b/i,
+    /\b(phonics?)\b/i,
     /\blearn.*sounds?\b/i
   ],
   spelling: [
-    /\b(spelling|spell|words?)\b/i,
+    /\b(spelling|spell)\b/i,
     /\bspell.*words?\b/i,
     /\blearn.*spelling\b/i
   ],
@@ -134,7 +134,7 @@ export const startVoiceCommandListener = (navigate, onListeningChange) => {
     }
     
     // No match found
-    speak("I didn't understand that. Try saying Alphabet, Numbers, Math, Spelling, Shapes, Continents, or Home!");
+    speak("I didn't understand that. Try saying: Go to Alphabet, Go to Numbers, Go to Math, Go to Spelling, Go to Shapes, Go to Continents, Go to Blocks, or Go Home!");
   };
 
   recognition.onerror = (event) => {
