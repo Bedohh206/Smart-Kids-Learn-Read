@@ -7,11 +7,9 @@ export default function VoiceCommandTip() {
 
   // Don't show on pages with their own speech recognition
   const hideOnPages = ['/phonics'];
-  if (hideOnPages.includes(location.pathname)) {
+  if (hideOnPages.includes(location.pathname) || !isVisible) {
     return null;
   }
-
-  if (!isVisible) return null;
 
   return (
     <div style={{

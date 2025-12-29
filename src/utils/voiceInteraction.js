@@ -36,7 +36,8 @@ export const speak = (text, options = {}) => {
     utterance.onend = () => resolve();
     utterance.onerror = (e) => {
       console.error('Speech error:', e);
-      reject(e);
+      // Resolve instead of reject to prevent unhandled promise rejections
+      resolve();
     };
 
     window.speechSynthesis.speak(utterance);
