@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 
-export default function Math() {
+export default function MathPractice() {
   const [operation, setOperation] = useState("addition");
   const [difficulty, setDifficulty] = useState("easy");
   const [problem, setProblem] = useState(null);
