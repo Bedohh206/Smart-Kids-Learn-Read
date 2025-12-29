@@ -8,13 +8,18 @@ import { speak } from "../utils/voiceInteraction";
 export default function Numbers() {
   const navigate = useNavigate();
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [activeNumber, setActiveNumber] = useState(null);
 
-  const play = async (audio, number) => {
+  const play = async (audio, number, exampleText) => {
     if (!audio) return;
+    
+    // Set active for animation
+    setActiveNumber(number);
+    setTimeout(() => setActiveNumber(null), 1000);
     
     // Speak the number first
     if (voiceEnabled) {
-      await speak(`The number ${number}`);
+      await speak(`The number ${number}. ${number} ${exampleText}`);
     }
     
     try {
@@ -90,13 +95,82 @@ export default function Numbers() {
           {voiceEnabled ? "🔊" : "🔇"}
         </button>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12 }}>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
+        gap: 24,
+        padding: 20
+      }}>
         {numbers.map((n) => (
-          <button key={n.number} onClick={() => play(n.audio, n.number)} style={{ padding: 16, fontSize: 20 }} aria-label={`Play number ${n.number}`}>
-            {n.number}
+          <button 
+            key={n.number} 
+            onClick={() => play(n.audio, n.number, n.exampleText)} 
+            style={{ 
+              padding: "32px 24px",
+              fontSize: 20,
+              borderRadius: 20,
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              transform: activeNumber === n.number ? "scale(1.2)" : "scale(1)",
+              transition: "transform 0.3s ease",
+              animation: activeNumber === n.number ? "zoomOut 0.5s ease" : "none"
+            }} 
+            aria-label={`Number ${n.number}. ${n.number} ${n.exampleText}`}
+          >
+            <div style={{ 
+              fontSize: 80, 
+              fontWeight: "bold",
+              textShadow: "3px 3px 6px rgba(0,0,0,0.3)"
+            }}>
+              {n.number}
+            </div>
+            <div style={{ 
+              fontSize: 24, 
+              fontWeight: "600",
+              marginTop: -8
+            }}>
+              {n.word}
+            </div>
+            <div style={{ 
+              fontSize: 40,
+              lineHeight: 1.2,
+              marginTop: 8
+            }}>
+              {n.example}
+            </div>
+            <div style={{ 
+              fontSize: 18, 
+              fontWeight: "500",
+              textTransform: "capitalize",
+              opacity: 0.9
+            }}>
+              {n.number} {n.exampleText}
+            </div>
           </button>
         ))}
       </div>
+      
+      {/* Zoom Animation */}
+      <style>{`
+        @keyframes zoomOut {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.3);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 }
