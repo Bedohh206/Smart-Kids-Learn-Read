@@ -8,6 +8,12 @@ export default function GlobalVoiceCommand() {
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
 
+  // Hide on pages with their own speech recognition (Phonics)
+  const hideOnPages = ['/phonics'];
+  if (hideOnPages.includes(location.pathname)) {
+    return null;
+  }
+
   // Handle voice commands
   const handleVoiceCommand = () => {
     if (isListening && recognition) {

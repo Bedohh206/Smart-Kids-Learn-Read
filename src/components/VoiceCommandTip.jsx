@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function VoiceCommandTip() {
   const [isVisible, setIsVisible] = useState(true);
+  const location = useLocation();
+
+  // Don't show on pages with their own speech recognition
+  const hideOnPages = ['/phonics'];
+  if (hideOnPages.includes(location.pathname)) {
+    return null;
+  }
 
   if (!isVisible) return null;
 

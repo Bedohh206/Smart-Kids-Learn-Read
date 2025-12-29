@@ -219,6 +219,20 @@ export default function Phonics() {
         </button>
       </div>
 
+      <div style={{
+        background: 'linear-gradient(135deg, #4CAF50 0%, #45B7D1 100%)',
+        color: 'white',
+        padding: '16px 24px',
+        borderRadius: 12,
+        marginBottom: 24,
+        textAlign: 'center',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+      }}>
+        <p style={{ margin: 0, fontSize: 16, fontWeight: 'bold' }}>
+          🎤 <strong>How to Practice:</strong> Click "🔊 Hear the word" to listen, then click "🎤 Try saying it" and pronounce the word clearly!
+        </p>
+      </div>
+
       <div style={{ marginBottom: 24 }}>
         <label style={{ fontWeight: "bold", marginRight: 12 }}>Select Category:</label>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
