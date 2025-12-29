@@ -5,6 +5,7 @@ import LearnPage from "./pages/LearnPage";
 import Alphabet from "./components/Alphabet";
 import Phonics from "./components/Phonics";
 import Numbers from "./components/Numbers";
+import Math from "./components/Math";
 import Spelling from "./components/Spelling";
 import ShapesColors from "./components/ShapesColors";
 import MatchingGame from "./components/MatchingGame";
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/alphabet" element={<Alphabet />} />
         <Route path="/phonics" element={<Phonics />} />
         <Route path="/numbers" element={<Numbers />} />
+        <Route path="/math" element={<Math />} />
         <Route path="/spelling" element={<Spelling />} />
         <Route path="/shapes-colors" element={<ShapesColors />} />
         <Route path="/matching" element={<MatchingGame />} />

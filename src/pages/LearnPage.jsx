@@ -9,6 +9,7 @@ export default function LearnPage() {
 				<li><Link to="/alphabet">Alphabet</Link></li>
 				<li><Link to="/phonics">Phonics</Link></li>
 				<li><Link to="/numbers">Numbers</Link></li>
+				<li><Link to="/math">Math Practice</Link></li>
 				<li><Link to="/spelling">Spelling</Link></li>
 				<li><Link to="/shapes-colors">Shapes & Colors</Link></li>
 				<li><Link to="/matching">Matching Game</Link></li>

@@ -12,6 +12,7 @@ export default function HomePage() {
 				<Link to="/alphabet">Alphabet</Link>
 				<Link to="/phonics">Phonics</Link>
 				<Link to="/numbers">Numbers</Link>
+				<Link to="/math">Math Practice</Link>
 				<Link to="/spelling">Spelling</Link>
 				<Link to="/shapes-colors">Shapes & Colors</Link>
 			</div>
