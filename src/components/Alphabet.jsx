@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { alphabet } from "../data/alphabet";
 import { Howl } from "howler";
 import { unlockAudio } from "../utils/audioUnlock";
 import { speak } from "../utils/voiceInteraction";
+import { announcePageContent, announceProgress } from "../utils/accessibility";
+import { useKeyboardNavigation } from "../utils/useKeyboardNavigation";
 
 export default function Alphabet() {
   const navigate = useNavigate();
   const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Enable keyboard navigation
+  useKeyboardNavigation('Alphabet');
+  
+  // Announce page on load
+  useEffect(() => {
+    setTimeout(() => {
+      announcePageContent(
+        'Alphabet Learning',
+        'Use arrow keys to navigate between letters. Press Space or Enter to hear the letter sound. Press I for help.'
+      );
+    }, 500);
+  }, []);
 
   const playSound = async (audio, letter) => {
     // Speak the letter first
@@ -94,13 +110,24 @@ export default function Alphabet() {
         </button>
       </div>
       <div className="grid">
-        {alphabet.map((item) => (
+        {alphabet.map((item, index) => (
           <button
             key={item.letter}
             className="card"
             onClick={() => playSound(item.audio, item.letter)}
-            aria-label={`Play sound for letter ${item.letter}`}
-          title={`Play ${item.letter}`}
+            onFocus={() => {
+              setCurrentIndex(index);
+              announceProgress(index + 1, alphabet.length, `Letter ${item.letter}`);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                playSound(item.audio, item.letter);
+              }
+            }}
+            aria-label={`Letter ${item.letter}. ${item.sound}. Example: ${item.word}. Press Space to hear the sound.`}
+            tabIndex={0}
+          title={`Letter ${item.letter} - ${item.word}`}
         >
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
             <h1 style={{ margin: 0 }}>{item.letter}</h1>

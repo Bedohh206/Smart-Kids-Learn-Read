@@ -3,12 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import heroImage from "../assets/images/home/main-hero.png";
 import { greetChild } from "../utils/voiceInteraction";
 import { startVoiceCommandListener, stopVoiceCommandListener } from "../utils/voiceCommands";
+import { announcePageContent, announceHelp } from "../utils/accessibility";
+import { useKeyboardNavigation } from "../utils/useKeyboardNavigation";
 import "../HomePage.css";
 
 export default function HomePage() {
 	const navigate = useNavigate();
 	const [isListening, setIsListening] = useState(false);
 	const [recognition, setRecognition] = useState(null);
+	const [blindMode, setBlindMode] = useState(false);
+	
+	// Enable keyboard navigation
+	useKeyboardNavigation('Home');
 	const categories = [
 		{ path: "/alphabet", title: "Alphabet", emoji: "🔤", color: "#FF6B6B", desc: "Learn your ABCs!" },
 		{ path: "/phonics", title: "Phonics", emoji: "🗣️", color: "#4ECDC4", desc: "Sound it out!" },
@@ -23,6 +29,13 @@ export default function HomePage() {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			greetChild();
+			// Announce page for accessibility
+			setTimeout(() => {
+				announcePageContent(
+					'Smart Kids Learn and Read',
+					'Welcome! Choose a learning activity. Press I for instructions, or press question mark for keyboard shortcuts.'
+				);
+			}, 3000);
 		}, 1000);
 		return () => clearTimeout(timer);
 	}, []);
@@ -44,6 +57,7 @@ export default function HomePage() {
 			{/* Voice Command Button */}
 			<button
 				onClick={handleVoiceCommand}
+				aria-label={isListening ? "Stop Voice Command" : "Start Voice Command"}
 				style={{
 					position: "fixed",
 					bottom: 32,
@@ -61,9 +75,33 @@ export default function HomePage() {
 					transition: "all 0.3s ease",
 					animation: isListening ? "pulse 1s infinite" : "none"
 				}}
-				title={isListening ? "Stop Voice Command" : "Start Voice Command"}
+				title={isListening ? "Stop Voice Command (Press V)" : "Start Voice Command (Press V)"}
 			>
 				{isListening ? "🔴" : "🎤"}
+			</button>
+
+			{/* Accessibility Help Button */}
+			<button
+				onClick={() => announceHelp('Home')}
+				aria-label="Help and Instructions"
+				style={{
+					position: "fixed",
+					bottom: 32,
+					right: 120,
+					width: 60,
+					height: 60,
+					borderRadius: "50%",
+					backgroundColor: "#2196F3",
+					color: "white",
+					border: "none",
+					fontSize: 32,
+					cursor: "pointer",
+					boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+					zIndex: 1000
+				}}
+				title="Press I for Help"
+			>
+				ℹ️
 			</button>
 
 			{/* Hero Section */}
@@ -103,6 +141,19 @@ export default function HomePage() {
 							to={category.path} 
 							key={category.path}
 							className="category-card"
+							aria-label={`${category.title}: ${category.desc}`}
+							tabIndex={0}
+							onFocus={() => {
+								if (blindMode) {
+									const shortcutKey = category.path === '/alphabet' ? 'A' : 
+														category.path === '/numbers' ? 'N' : 
+														category.path === '/math' ? 'M' : 
+														category.path === '/spelling' ? 'S' : 
+														category.path === '/phonics' ? 'P' : 
+														category.path === '/shapes-colors' ? 'C' : 'W';
+									announcePageContent(category.title, `${category.desc} Press Enter to go, or press ${shortcutKey} anytime.`);
+								}
+							}}
 							style={{ 
 								backgroundColor: category.color,
 								animationDelay: `${index * 0.1}s`

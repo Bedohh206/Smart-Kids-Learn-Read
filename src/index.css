@@ -83,8 +83,30 @@ button:focus,
 .card:focus,
 input:focus,
 a:focus {
-  outline: 3px solid rgba(11,132,255,0.25);
-  outline-offset: 2px;
+  outline: 4px solid #FFD93D !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.5) !important;
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+/* Keyboard navigation indicator */
+*:focus-visible {
+  outline: 4px solid #FFD93D !important;
+  outline-offset: 4px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    filter: contrast(1.5);
+  }
+  
+  button:focus,
+  .card:focus,
+  a:focus {
+    outline: 6px solid #FFD93D !important;
+  }
 }
 
 /* Inputs */
