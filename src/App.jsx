@@ -21,6 +21,7 @@ import ColorMixing from "./components/ColorMixing";
 import PatternGames from "./components/PatternGames";
 import GlobalVoiceCommand from "./components/GlobalVoiceCommand";
 import VoiceCommandTip from "./components/VoiceCommandTip";
+import InstallPrompt from "./components/InstallPrompt";
 
 export default function App() {
   return (
@@ -53,6 +54,7 @@ export default function App() {
       </Routes>
       <VoiceCommandTip />
       <GlobalVoiceCommand />
+      <InstallPrompt />
     </BrowserRouter>
   );
 }
