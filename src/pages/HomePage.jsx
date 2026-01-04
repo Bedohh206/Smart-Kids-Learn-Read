@@ -13,14 +13,25 @@ export default function HomePage() {
 	// Enable keyboard navigation
 	useKeyboardNavigation('Home');
 	const categories = [
-		{ path: "/alphabet", title: "Alphabet", emoji: "🔤", color: "#FF6B6B", desc: "Learn your ABCs!" },
-		{ path: "/phonics", title: "Phonics", emoji: "🗣️", color: "#4ECDC4", desc: "Sound it out!" },
-		{ path: "/numbers", title: "Numbers", emoji: "🔢", color: "#45B7D1", desc: "Count with us!" },
-		{ path: "/math", title: "Math Practice", emoji: "➕", color: "#96CEB4", desc: "Solve problems!" },
-		{ path: "/spelling", title: "Spelling", emoji: "✏️", color: "#FFEAA7", desc: "Spell words!" },
-		{ path: "/shapes-colors", title: "Shapes & Colors", emoji: "🎨", color: "#DDA15E", desc: "Learn shapes!" },
-		{ path: "/continents", title: "Continents", emoji: "🌍", color: "#54A0FF", desc: "Explore the world!" },
-		{ path: "/blocks", title: "Block Game", emoji: "🧱", color: "#FF6B9D", desc: "Build with blocks!" }
+		// Fun & Creative Activities (Perfect for Under 5)
+		{ path: "/art", title: "Art Studio", emoji: "🎨", color: "#FF6B6B", desc: "Draw & paint!", section: "creative" },
+		{ path: "/music", title: "Music Studio", emoji: "🎵", color: "#F093FB", desc: "Play instruments!", section: "creative" },
+		{ path: "/animals", title: "Animal World", emoji: "🦁", color: "#84FAB0", desc: "Meet animals!", section: "creative" },
+		{ path: "/stories", title: "Story Time", emoji: "📚", color: "#A8EDEA", desc: "Listen to stories!", section: "creative" },
+		{ path: "/color-mixing", title: "Color Lab", emoji: "🧪", color: "#FFA500", desc: "Mix colors!", section: "creative" },
+		{ path: "/patterns", title: "Pattern Games", emoji: "🧩", color: "#FA709A", desc: "Find patterns!", section: "creative" },
+		
+		// Learning Activities
+		{ path: "/alphabet", title: "Alphabet", emoji: "🔤", color: "#4ECDC4", desc: "Learn your ABCs!", section: "learning" },
+		{ path: "/phonics", title: "Phonics", emoji: "🗣️", color: "#45B7D1", desc: "Sound it out!", section: "learning" },
+		{ path: "/numbers", title: "Numbers", emoji: "🔢", color: "#96CEB4", desc: "Count with us!", section: "learning" },
+		{ path: "/shapes-colors", title: "Shapes & Colors", emoji: "⭐", color: "#DDA15E", desc: "Learn shapes!", section: "learning" },
+		
+		// Advanced Activities
+		{ path: "/math", title: "Math Practice", emoji: "➕", color: "#FFEAA7", desc: "Solve problems!", section: "advanced" },
+		{ path: "/spelling", title: "Spelling", emoji: "✏️", color: "#54A0FF", desc: "Spell words!", section: "advanced" },
+		{ path: "/continents", title: "Continents", emoji: "🌍", color: "#FF6B9D", desc: "Explore the world!", section: "advanced" },
+		{ path: "/blocks", title: "Block Game", emoji: "🧱", color: "#C084FC", desc: "Build with blocks!", section: "advanced" }
 	];
 
 	// Greet child when page loads
@@ -92,11 +103,14 @@ export default function HomePage() {
 
 			{/* Categories Grid */}
 			<div className="categories-container">
-				<h2 className="section-title">
-					🎯 Choose Your Adventure!
+				<h2 className="section-title" style={{ fontSize: "2.5rem", marginBottom: "10px" }}>
+					✨ Fun & Creative Activities! ✨
 				</h2>
+				<p style={{ textAlign: "center", fontSize: "1.3rem", color: "#666", marginBottom: "30px" }}>
+					Perfect for young learners!
+				</p>
 				<div className="categories-grid">
-					{categories.map((category, index) => (
+					{categories.filter(c => c.section === "creative").map((category, index) => (
 						<Link 
 							to={category.path} 
 							key={category.path}
@@ -105,13 +119,65 @@ export default function HomePage() {
 							tabIndex={0}
 							onFocus={() => {
 								if (blindMode) {
-									const shortcutKey = category.path === '/alphabet' ? 'A' : 
-														category.path === '/numbers' ? 'N' : 
-														category.path === '/math' ? 'M' : 
-														category.path === '/spelling' ? 'S' : 
-														category.path === '/phonics' ? 'P' : 
-														category.path === '/shapes-colors' ? 'C' : 'W';
-									announcePageContent(category.title, `${category.desc} Press Enter to go, or press ${shortcutKey} anytime.`);
+									announcePageContent(category.title, `${category.desc} Press Enter to go.`);
+								}
+							}}
+							style={{ 
+								backgroundColor: category.color,
+								animationDelay: `${index * 0.1}s`
+							}}
+						>
+							<div className="category-emoji">{category.emoji}</div>
+							<h3 className="category-title">{category.title}</h3>
+							<p className="category-desc">{category.desc}</p>
+							<div className="card-shine"></div>
+						</Link>
+					))}
+				</div>
+
+				<h2 className="section-title" style={{ fontSize: "2.5rem", marginTop: "50px", marginBottom: "10px" }}>
+					📖 Learning Activities 📖
+				</h2>
+				<div className="categories-grid">
+					{categories.filter(c => c.section === "learning").map((category, index) => (
+						<Link 
+							to={category.path} 
+							key={category.path}
+							className="category-card"
+							aria-label={`${category.title}: ${category.desc}`}
+							tabIndex={0}
+							onFocus={() => {
+								if (blindMode) {
+									announcePageContent(category.title, `${category.desc} Press Enter to go.`);
+								}
+							}}
+							style={{ 
+								backgroundColor: category.color,
+								animationDelay: `${index * 0.1}s`
+							}}
+						>
+							<div className="category-emoji">{category.emoji}</div>
+							<h3 className="category-title">{category.title}</h3>
+							<p className="category-desc">{category.desc}</p>
+							<div className="card-shine"></div>
+						</Link>
+					))}
+				</div>
+
+				<h2 className="section-title" style={{ fontSize: "2.5rem", marginTop: "50px", marginBottom: "10px" }}>
+					🚀 Challenge Yourself! 🚀
+				</h2>
+				<div className="categories-grid">
+					{categories.filter(c => c.section === "advanced").map((category, index) => (
+						<Link 
+							to={category.path} 
+							key={category.path}
+							className="category-card"
+							aria-label={`${category.title}: ${category.desc}`}
+							tabIndex={0}
+							onFocus={() => {
+								if (blindMode) {
+									announcePageContent(category.title, `${category.desc} Press Enter to go.`);
 								}
 							}}
 							style={{ 
