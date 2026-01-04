@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { trackAppInstall, trackEvent } from "../utils/analytics";
 
 export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -29,6 +30,7 @@ export default function InstallPrompt() {
     window.addEventListener('appinstalled', () => {
       setIsInstalled(true);
       setShowInstallPrompt(false);
+      trackAppInstall();
       console.log('PWA was installed');
     });
 
@@ -40,11 +42,16 @@ export default function InstallPrompt() {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
+    trackEvent('install_prompt_clicked', { timestamp: new Date().toISOString() });
+    
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     
     if (outcome === 'accepted') {
       console.log('User accepted the install prompt');
+      trackEvent('install_accepted', { timestamp: new Date().toISOString() });
+    } else {
+      trackEvent('install_dismissed', { timestamp: new Date().toISOString() });
     }
     
     setDeferredPrompt(null);

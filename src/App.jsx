@@ -22,6 +22,7 @@ import PatternGames from "./components/PatternGames";
 import GlobalVoiceCommand from "./components/GlobalVoiceCommand";
 import VoiceCommandTip from "./components/VoiceCommandTip";
 import InstallPrompt from "./components/InstallPrompt";
+import Analytics from "./components/Analytics";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         v7_relativeSplatPath: true
       }}
     >
+      <Analytics />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/alphabet" element={<Alphabet />} />
