@@ -19,6 +19,11 @@ const seoByPath = {
     description:
       "Practical guides for parents and teachers to build reading, phonics, and number confidence in ages 3-7."
   },
+  "/go-live": {
+    title: "Go Live Checklist | Smart Kids Learn & Read",
+    description:
+      "Launch checklist for Smart Kids Learn & Read covering AdSense setup, indexing, analytics, and quality review steps."
+  },
   "/about": {
     title: "About | Smart Kids Learn & Read",
     description:

@@ -95,7 +95,7 @@ export default function GuidesPage() {
       <section style={{ marginTop: 30 }}>
         <h2>More site pages</h2>
         <p>
-          <Link to="/">Home</Link> · <Link to="/about">About</Link> · <Link to="/privacy">Privacy</Link> ·{" "}
+          <Link to="/">Home</Link> · <Link to="/about">About</Link> · <Link to="/privacy">Privacy</Link> · <Link to="/go-live">Go Live</Link> ·{" "}
           <Link to="/terms">Terms</Link> · <Link to="/contact">Contact</Link>
         </p>
       </section>

@@ -229,6 +229,7 @@ export default function HomePage() {
 						the website operates and how to request support.
 					</p>
 					<div className="site-footer-links">
+						<Link to="/go-live">Go Live Checklist</Link>
 						<Link to="/guides">Parent &amp; Teacher Guides</Link>
 						<Link to="/about">About</Link>
 						<Link to="/privacy">Privacy Policy</Link>

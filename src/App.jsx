@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import LearnPage from "./pages/LearnPage";
 import SiteInfoPage from "./pages/SiteInfoPage";
 import GuidesPage from "./pages/GuidesPage";
+import GoLiveChecklistPage from "./pages/GoLiveChecklistPage";
 import Alphabet from "./components/Alphabet";
 import Phonics from "./components/Phonics";
 import Numbers from "./components/Numbers";
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/blocks" element={<BlockGame />} />
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/guides" element={<GuidesPage />} />
+        <Route path="/go-live" element={<GoLiveChecklistPage />} />
         <Route path="/about" element={<SiteInfoPage pageKey="about" />} />
         <Route path="/contact" element={<SiteInfoPage pageKey="contact" />} />
         <Route path="/privacy" element={<SiteInfoPage pageKey="privacy" />} />

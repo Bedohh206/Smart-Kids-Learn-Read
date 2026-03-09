@@ -162,7 +162,7 @@ function SiteInfoPage({ pageKey }) {
       <section style={{ marginTop: 28 }}>
         <h2>Quick Links</h2>
         <p>
-          <Link to="/">Home</Link> · <Link to="/learn">Learn</Link> · <Link to="/guides">Guides</Link> ·{" "}
+          <Link to="/">Home</Link> · <Link to="/learn">Learn</Link> · <Link to="/guides">Guides</Link> · <Link to="/go-live">Go Live</Link> ·{" "}
           <Link to="/about">About</Link> · <Link to="/privacy">Privacy</Link> · <Link to="/terms">Terms</Link> ·{" "}
           <Link to="/contact">Contact</Link>
         </p>
