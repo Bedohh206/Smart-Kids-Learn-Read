@@ -38,7 +38,7 @@ const pageContent = {
       {
         heading: "How to reach us",
         paragraphs: [
-          "Email: support@smartkidslearnread.com",
+          "Email: smartkidsquiz@mail.com",
           "For bug reports, include device type, browser name, and a short description of what happened so we can reproduce and fix the issue quickly."
         ]
       },
@@ -74,7 +74,7 @@ const pageContent = {
         heading: "Children's privacy",
         paragraphs: [
           "This website is intended for educational use by children with parent, guardian, or teacher supervision.",
-          "Parents or guardians who have privacy-related questions can contact us at support@smartkidslearnread.com."
+          "Parents or guardians who have privacy-related questions can contact us at smartkidsquiz@mail.com."
         ]
       },
       {
