@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LearnPage from "./pages/LearnPage";
+import SiteInfoPage from "./pages/SiteInfoPage";
+import GuidesPage from "./pages/GuidesPage";
 import Alphabet from "./components/Alphabet";
 import Phonics from "./components/Phonics";
 import Numbers from "./components/Numbers";
@@ -19,10 +21,12 @@ import AnimalWorld from "./components/AnimalWorld";
 import StoryTime from "./components/StoryTime";
 import ColorMixing from "./components/ColorMixing";
 import PatternGames from "./components/PatternGames";
+import SiteNav from "./components/SiteNav";
 import GlobalVoiceCommand from "./components/GlobalVoiceCommand";
 import VoiceCommandTip from "./components/VoiceCommandTip";
 import InstallPrompt from "./components/InstallPrompt";
 import Analytics from "./components/Analytics";
+import SeoHead from "./components/SeoHead";
 
 export default function App() {
   return (
@@ -33,6 +37,8 @@ export default function App() {
       }}
     >
       <Analytics />
+      <SeoHead />
+      <SiteNav />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/alphabet" element={<Alphabet />} />
@@ -47,6 +53,11 @@ export default function App() {
         <Route path="/continents" element={<Continents />} />
         <Route path="/blocks" element={<BlockGame />} />
         <Route path="/learn" element={<LearnPage />} />
+        <Route path="/guides" element={<GuidesPage />} />
+        <Route path="/about" element={<SiteInfoPage pageKey="about" />} />
+        <Route path="/contact" element={<SiteInfoPage pageKey="contact" />} />
+        <Route path="/privacy" element={<SiteInfoPage pageKey="privacy" />} />
+        <Route path="/terms" element={<SiteInfoPage pageKey="terms" />} />
         <Route path="/art" element={<ArtStudio />} />
         <Route path="/music" element={<MusicStudio />} />
         <Route path="/animals" element={<AnimalWorld />} />
