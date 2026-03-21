@@ -4,6 +4,7 @@ import heroImage from "../assets/images/home/main-hero.png";
 import { greetChild } from "../utils/voiceInteraction";
 import { announcePageContent, announceHelp } from "../utils/accessibility";
 import { useKeyboardNavigation } from "../utils/useKeyboardNavigation";
+import Footer from "../components/Footer";
 import "../HomePage.css";
 
 export default function HomePage() {
@@ -97,6 +98,47 @@ export default function HomePage() {
 							alt="Kids Learning" 
 							className="hero-image"
 						/>
+					</div>
+				</div>
+			</div>
+
+			{/* ── AdSense-compliant intro section ── */}
+			<div className="intro-section">
+				<div className="intro-card">
+					<h2 className="intro-heading">Welcome to Smart Kids Quiz!</h2>
+					<p className="intro-text">
+						Smart Kids Quiz is a fun, interactive learning world designed for children ages 4–10.
+						Our activities and quizzes help kids build confidence in early reading, math and
+						counting, shapes and colors, animals and nature, problem-solving, and memory and logic.
+					</p>
+					<p className="intro-text">
+						Every quiz is crafted to be simple, colorful, and engaging — perfect for young
+						learners. Kids learn while having fun, and parents get peace of mind knowing the
+						content is safe, educational, and ad-free during gameplay.
+					</p>
+				</div>
+
+				{/* Learning Categories overview */}
+				<div className="lc-section">
+					<h2 className="lc-heading">📚 Learning Categories</h2>
+					<p className="lc-sub">Choose a topic and start learning:</p>
+					<div className="lc-grid">
+						{[
+							{ emoji: "➕", title: "Math Skills", desc: "Counting, shapes, patterns, addition, subtraction" },
+							{ emoji: "🔤", title: "Reading Skills", desc: "Letters, simple words, phonics, spelling" },
+							{ emoji: "🦁", title: "Animals & Nature", desc: "Habitats, animal sounds, fun facts" },
+							{ emoji: "⭐", title: "Colors & Shapes", desc: "Early visual learning and recognition" },
+							{ emoji: "🧩", title: "Memory Games", desc: "Matching, recall, and attention skills" },
+							{ emoji: "🌍", title: "General Knowledge", desc: "Continents, everyday learning for kids" },
+						].map(({ emoji, title, desc }) => (
+							<div key={title} className="lc-card">
+								<span className="lc-emoji">{emoji}</span>
+								<div>
+									<strong className="lc-title">{title}</strong>
+									<p className="lc-desc">{desc}</p>
+								</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
@@ -248,6 +290,8 @@ export default function HomePage() {
 				<div className="float float-5">🎵</div>
 				<div className="float float-6">🦋</div>
 			</div>
+
+			<Footer />
 		</div>
 	);
 }

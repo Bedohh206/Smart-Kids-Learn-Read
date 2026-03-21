@@ -124,6 +124,23 @@ export default function ShapesColors() {
           {voiceEnabled ? "🔊" : "🔇"}
         </button>
       </div>
+
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: 'linear-gradient(135deg, #DDA15E 0%, #e17055 100%)',
+        borderRadius: 16,
+        padding: '20px 24px',
+        marginBottom: 24,
+        color: 'white'
+      }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 8px' }}>⭐ What You'll Learn</h2>
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0, opacity: 0.95 }}>
+          Explore shapes and colours through sound and interaction! Click each shape or colour to
+          hear its name. Learning to identify shapes and colours is one of the earliest and most
+          important milestones in a child's visual and cognitive development.
+        </p>
+      </div>
+
       <h2>Shapes</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
         {shapes.map((shape) => (

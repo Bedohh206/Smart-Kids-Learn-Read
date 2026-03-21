@@ -338,6 +338,23 @@ export default function MathPractice() {
           </button>
         </div>
 
+        {/* Educational intro for AdSense compliance */}
+        <div style={{
+          background: "linear-gradient(135deg, #FFEAA7 0%, #fdcb6e 100%)",
+          borderRadius: 16,
+          padding: "20px 24px",
+          marginBottom: 20,
+          color: "#333",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.1)"
+        }}>
+          <h2 style={{ fontSize: 20, fontWeight: 900, margin: "0 0 8px" }}>➕ What You'll Learn</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+            Practice addition, subtraction, multiplication, and division at your own pace.
+            This activity helps children develop mental math skills, number fluency, and
+            problem-solving confidence — core skills used in everyday life.
+          </p>
+        </div>
+
         {/* Operation Selection */}
         <div style={{ 
           background: "white",

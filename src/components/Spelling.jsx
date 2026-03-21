@@ -191,6 +191,22 @@ export default function Spelling() {
         </button>
       </div>
 
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: "linear-gradient(135deg, #54A0FF 0%, #2e86de 100%)",
+        borderRadius: 16,
+        padding: "20px 24px",
+        marginBottom: 24,
+        color: "white"
+      }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, margin: "0 0 8px" }}>✏️ What You'll Learn</h2>
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0, opacity: 0.95 }}>
+          Practice spelling words by category — from animals and colors to everyday objects.
+          Hear the word, then type it correctly to earn points. Spelling practice builds
+          vocabulary, phonics awareness, and reading comprehension in young learners.
+        </p>
+      </div>
+
       <div style={{ marginBottom: 24 }}>
         <label style={{ fontWeight: "bold", marginRight: 12 }}>Select Category:</label>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>

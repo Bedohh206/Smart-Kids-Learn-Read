@@ -497,3 +497,127 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   }
 }
+
+/* ── Intro Section ── */
+.intro-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.intro-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  padding: 36px 44px;
+  margin-bottom: 32px;
+}
+
+.intro-heading {
+  font-size: 32px;
+  font-weight: 900;
+  color: #FFD93D;
+  margin: 0 0 16px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.intro-text {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.8;
+  margin: 0 0 12px;
+}
+
+.intro-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Learning Categories ── */
+.lc-section {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 36px 44px;
+  margin-bottom: 40px;
+}
+
+.lc-heading {
+  font-size: 30px;
+  font-weight: 900;
+  color: #FFD93D;
+  margin: 0 0 8px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.lc-sub {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 24px;
+}
+
+.lc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.lc-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.lc-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.lc-emoji {
+  font-size: 36px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.lc-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.lc-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .intro-card,
+  .lc-section {
+    padding: 24px 20px;
+  }
+
+  .intro-heading,
+  .lc-heading {
+    font-size: 24px;
+  }
+
+  .intro-text {
+    font-size: 16px;
+  }
+
+  .lc-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -109,6 +109,23 @@ export default function Alphabet() {
           {voiceEnabled ? "🔊" : "🔇"}
         </button>
       </div>
+
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: "linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%)",
+        borderRadius: 16,
+        padding: "20px 24px",
+        margin: "0 20px 24px",
+        color: "white"
+      }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, margin: "0 0 8px" }}>🔤 What You'll Learn</h2>
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0, opacity: 0.95 }}>
+          Explore every letter of the alphabet! Click each letter card to hear its sound and name.
+          This activity helps children recognize uppercase and lowercase letters, learn letter sounds,
+          and build a strong foundation for reading and writing.
+        </p>
+      </div>
+
       <div className="grid">
         {alphabet.map((item, index) => (
           <button

@@ -241,6 +241,23 @@ export default function Phonics() {
         </button>
       </div>
 
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: 'linear-gradient(135deg, #45B7D1 0%, #667eea 100%)',
+        color: 'white',
+        padding: '20px 24px',
+        borderRadius: 16,
+        marginBottom: 16,
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+      }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 8px' }}>🗣️ What You'll Learn</h2>
+        <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, opacity: 0.95 }}>
+          Phonics teaches children to connect letters with the sounds they make. Listen to each
+          word, then practise saying it aloud. Phonics skills are the single most important
+          foundation for learning to read and spell.
+        </p>
+      </div>
+
       <div style={{
         background: 'linear-gradient(135deg, #4CAF50 0%, #45B7D1 100%)',
         color: 'white',

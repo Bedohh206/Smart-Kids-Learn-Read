@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LearnPage from "./pages/LearnPage";
-import SiteInfoPage from "./pages/SiteInfoPage";
 import GuidesPage from "./pages/GuidesPage";
 import GoLiveChecklistPage from "./pages/GoLiveChecklistPage";
 import Alphabet from "./components/Alphabet";
@@ -28,6 +27,10 @@ import VoiceCommandTip from "./components/VoiceCommandTip";
 import InstallPrompt from "./components/InstallPrompt";
 import Analytics from "./components/Analytics";
 import SeoHead from "./components/SeoHead";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import Terms from "./components/Terms";
 
 export default function App() {
   return (
@@ -56,16 +59,16 @@ export default function App() {
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/guides" element={<GuidesPage />} />
         <Route path="/go-live" element={<GoLiveChecklistPage />} />
-        <Route path="/about" element={<SiteInfoPage pageKey="about" />} />
-        <Route path="/contact" element={<SiteInfoPage pageKey="contact" />} />
-        <Route path="/privacy" element={<SiteInfoPage pageKey="privacy" />} />
-        <Route path="/terms" element={<SiteInfoPage pageKey="terms" />} />
         <Route path="/art" element={<ArtStudio />} />
         <Route path="/music" element={<MusicStudio />} />
         <Route path="/animals" element={<AnimalWorld />} />
         <Route path="/stories" element={<StoryTime />} />
         <Route path="/color-mixing" element={<ColorMixing />} />
         <Route path="/patterns" element={<PatternGames />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
       <VoiceCommandTip />
       <GlobalVoiceCommand />

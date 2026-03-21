@@ -95,6 +95,23 @@ export default function Numbers() {
           {voiceEnabled ? "🔊" : "🔇"}
         </button>
       </div>
+
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: "linear-gradient(135deg, #96CEB4 0%, #45B7D1 100%)",
+        borderRadius: 16,
+        padding: "20px 24px",
+        marginBottom: 24,
+        color: "white"
+      }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, margin: "0 0 8px" }}>🔢 What You'll Learn</h2>
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0, opacity: 0.95 }}>
+          Discover numbers 1 through 20! Tap each card to hear the number spoken aloud with a real-world
+          example. This activity builds number recognition, counting skills, and early numeracy — essential
+          foundations for math success.
+        </p>
+      </div>
+
       <div style={{ 
         display: "grid", 
         gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 

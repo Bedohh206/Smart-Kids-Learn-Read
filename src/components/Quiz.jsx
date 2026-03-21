@@ -69,6 +69,21 @@ export default function Quiz() {
 
   return (
     <div style={{ padding: 20 }}>
+      {/* Educational intro for AdSense compliance */}
+      <div style={{
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        borderRadius: 16,
+        padding: "20px 24px",
+        marginBottom: 20,
+        color: "white"
+      }}>
+        <h1 style={{ fontSize: 26, fontWeight: 900, margin: "0 0 8px" }}>🎯 Word Quiz</h1>
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0, opacity: 0.95 }}>
+          What You'll Learn: Listen to the word sound and choose the correct spelling.
+          This quiz helps kids practice phonics, word recognition, and listening skills —
+          key building blocks for early reading success.
+        </p>
+      </div>
       <h2>Quiz</h2>
       <button onClick={play}>🔊 Play</button>
       <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
